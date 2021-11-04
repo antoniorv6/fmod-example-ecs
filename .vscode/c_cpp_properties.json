@@ -3,10 +3,11 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",                
+                "${workspaceFolder}/**",
                 "${workspaceFolder}/vendor/raylib/src/**",
                 "${workspaceFolder}/vendor/spdlog/include/**",
-                "${workspaceFolder}/vendor/spdlog/include"
+                "${workspaceFolder}/vendor/spdlog/include",
+                "${workspaceFolder}/vendor/FMOD/core/inc"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

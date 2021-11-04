@@ -2,6 +2,7 @@ extern "C"{
     #include "raylib.h"
 }
 
+#include <entt/entity/registry.hpp>
 #include "Logger.hpp"
 
 int main(void)

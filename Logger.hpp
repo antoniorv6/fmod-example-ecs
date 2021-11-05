@@ -35,3 +35,4 @@ class Logger
 #define FMOD_ENGINE_INFO(...) ::Logger::GetFMODLogger()->info(__VA_ARGS__)
 #define FMOD_ENGINE_WARNING(...) ::Logger::GetFMODLogger()->warn(__VA_ARGS__)
 #define FMOD_ENGINE_ERROR(...) ::Logger::GetFMODLogger()->error(__VA_ARGS__)
+#define FMOD_ENGINE_CRITICAL(...) ::Logger::GetFMODLogger()->critical(__VA_ARGS__)

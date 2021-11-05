@@ -7,7 +7,8 @@
                 "${workspaceFolder}/vendor/raylib/src/**",
                 "${workspaceFolder}/vendor/spdlog/include/**",
                 "${workspaceFolder}/vendor/spdlog/include",
-                "${workspaceFolder}/vendor/FMOD/core/inc"
+                "${workspaceFolder}/vendor/FMOD/core/inc",
+                "${workspaceFolder}/vendor/raylib/src"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

@@ -87,10 +87,10 @@ void SoundSystem::Update(entt::registry& reg)
     auto view = reg.view<const ListenerComponent, const PositionComponent, const CameraComponent>();
     for(auto [lc, p_comp, c_comp]: view.each()) 
     {
-        Vector3 normalizedForward = Vector3Normalize((Vector3){-(c_comp.tarX - p_comp.x), c_comp.tarY - p_comp.y, c_comp.tarZ - p_comp.z});
-        Vector2 angle = Vector3Angle(normalizedForward, (Vector3){0,0,1});
-        SOUND_TRACE("{0}, {1}", angle.x, angle.y);
-        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {-cos(angle.x), 0, -sin(angle.x)}, {0,1,0}};
+        Vector3 normalizedForward = Vector3Normalize((Vector3){c_comp.tarX, c_comp.tarY, c_comp.tarZ});
+        //float angle = Vector2Angle((Vector2){normalizedForward.x, normalizedForward.z}, {0,1});
+        //SOUND_TRACE("{0}", angle/360);
+        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {normalizedForward.x, 0, normalizedForward.z}, {0,1,0}};
         ERRCHECK(soundSystem->setListenerAttributes(0, &l_listenerAttributes));
     }
 

@@ -65,5 +65,5 @@ void RenderSystem::Update(const entt::registry& registry)
 void RenderSystem::UpdatePlayerPosition(entt::entity& player, entt::registry& reg)
 {
     reg.replace<PositionComponent>(player, camera.position.x, camera.position.y, camera.position.z);
-    reg.replace<PositionComponent>(player, camera.target.x, camera.target.y, camera.target.z);
+    reg.replace<CameraComponent>(player, camera.target.x, camera.target.y, camera.target.z);
 }

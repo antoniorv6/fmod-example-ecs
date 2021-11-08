@@ -9,12 +9,13 @@ class Logger
         static void Init();
         inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() {return coreLogger;}
         inline static std::shared_ptr<spdlog::logger>& GetSoundLogger() {return soundLogger;}
-        inline static std::shared_ptr<spdlog::logger>& GetFMODLogger() {return fmodLogger;}
+        inline static std::shared_ptr<spdlog::logger>& GetRenderLogger() {return renderLogger;}
+
 
     private:
         static std::shared_ptr<spdlog::logger> coreLogger;
         static std::shared_ptr<spdlog::logger> soundLogger;
-        static std::shared_ptr<spdlog::logger> fmodLogger;
+        static std::shared_ptr<spdlog::logger> renderLogger;
 
 };
 
@@ -30,9 +31,8 @@ class Logger
 #define SOUND_WARNING(...) ::Logger::GetSoundLogger()->warn(__VA_ARGS__)
 #define SOUND_ERROR(...) ::Logger::GetSoundLogger()->error(__VA_ARGS__)
 
-//FMOD logger
-#define FMOD_ENGINE_TRACE(...) ::Logger::GetFMODLogger()->trace(__VA_ARGS__)
-#define FMOD_ENGINE_INFO(...) ::Logger::GetFMODLogger()->info(__VA_ARGS__)
-#define FMOD_ENGINE_WARNING(...) ::Logger::GetFMODLogger()->warn(__VA_ARGS__)
-#define FMOD_ENGINE_ERROR(...) ::Logger::GetFMODLogger()->error(__VA_ARGS__)
-#define FMOD_ENGINE_CRITICAL(...) ::Logger::GetFMODLogger()->critical(__VA_ARGS__)
+//Render Logger
+#define RENDER_TRACE(...) ::Logger::GetRenderLogger()->trace(__VA_ARGS__)
+#define RENDER_INFO(...) ::Logger::GetRenderLogger()->info(__VA_ARGS__)
+#define RENDER_WARNING(...) ::Logger::GetRenderLogger()->warn(__VA_ARGS__)
+#define RENDER_ERROR(...) ::Logger::GetRenderLogger()->error(__VA_ARGS__)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	ApertureVR:TWP - Radio
+* source:	https://sketchfab.com/3d-models/aperturevrtwp-radio-702affb8e8844fb2ae18ed623817cc0f
+* author:	josephthekp (https://sketchfab.com/josephthekp)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "ApertureVR:TWP - Radio" (https://sketchfab.com/3d-models/aperturevrtwp-radio-702affb8e8844fb2ae18ed623817cc0f) by josephthekp (https://sketchfab.com/josephthekp) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

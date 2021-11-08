@@ -1,22 +1,7 @@
 #include <SoundSystem.hpp>
 #include <Logger.hpp>
 #include <Components.hpp>
-
-FMOD_VECTOR normalizeVec(FMOD_VECTOR unnormalized)
-{
-    float modulus = sqrt(unnormalized.x * unnormalized.x + unnormalized.y * unnormalized.y + unnormalized.z * unnormalized.z);
-    return FMOD_VECTOR{unnormalized.x / modulus, unnormalized.y / modulus, unnormalized.z / modulus};
-}
-
-float angle(FMOD_VECTOR forward, FMOD_VECTOR up)
-{
-    float dot = forward.x*up.x + forward.y*up.y + forward.z*up.z;
-
-    FMOD_VECTOR cross = {forward.y * up.z - forward.z * up.y, forward.z * up.x - forward.x * up.z, forward.x * up.y - forward.y * up.x};
-    float lenCross = sqrt(cross.x*cross.x + cross.y*cross.y + cross.z*cross.z);
-
-    return atan2(lenCross, dot);
-}
+#include <raymath.h>
 
 void ERRCHECK_FMOD (FMOD_RESULT result, const char * file, int line)
 {
@@ -102,9 +87,10 @@ void SoundSystem::Update(entt::registry& reg)
     auto view = reg.view<const ListenerComponent, const PositionComponent, const CameraComponent>();
     for(auto [lc, p_comp, c_comp]: view.each()) 
     {
-        FMOD_VECTOR normalizedforward =FMOD_VECTOR{-(c_comp.tarX - p_comp.x), c_comp.tarY - p_comp.y, c_comp.tarZ - p_comp.z};
-        float angx = angle(normalizedforward, {1,0,0});
-        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {cos(angx), 0, sin(angx)}, {0,1,0}};
+        Vector3 normalizedForward = Vector3Normalize((Vector3){-(c_comp.tarX - p_comp.x), c_comp.tarY - p_comp.y, c_comp.tarZ - p_comp.z});
+        Vector2 angle = Vector3Angle(normalizedForward, (Vector3){0,0,1});
+        SOUND_TRACE("{0}, {1}", angle.x, angle.y);
+        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {-cos(angle.x), 0, -sin(angle.x)}, {0,1,0}};
         ERRCHECK(soundSystem->setListenerAttributes(0, &l_listenerAttributes));
     }
 

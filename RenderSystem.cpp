@@ -1,6 +1,7 @@
 #include <RenderSystem.hpp>
 #include <Logger.hpp>
 #include <Components.hpp>
+#include <raymath.h>
 
 RenderSystem::RenderSystem()
 {
@@ -27,6 +28,7 @@ void RenderSystem::AddRenderComponent(entt::entity& ent, entt::registry& reg, co
 {
     RENDER_INFO("Loading {0} as a component for entity {1}", modelRoute, ent);
     Model model = LoadModel(modelRoute.c_str());
+    model.transform = MatrixRotateXYZ((Vector3){ 0, DEG2RAD*180, 0 });
     reg.emplace<RenderComponent>(ent, model, modelSize);
     RENDER_TRACE("Entity {0} has registered a new Render Component", ent);
 }

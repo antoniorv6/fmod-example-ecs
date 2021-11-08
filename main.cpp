@@ -32,7 +32,7 @@ int main(void)
     // -- Radio creation -- //
     CORE_TRACE("Creating radio entity");
     auto radio = reg.create(); //Radio entity
-    reg.emplace<PositionComponent>(radio, 0.0f, 1.0f, 12.0f);
+    reg.emplace<PositionComponent>(radio, 0.0f, 2.0f, 12.0f);
     render.AddRenderComponent(radio, reg, "assets/models/scene.gltf", 120.0f);
     soundsys.AddSoundComponent(radio, reg, "event:/Radio", {"Channel"}, {});
     CORE_INFO("Radio entity created");

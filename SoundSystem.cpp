@@ -70,7 +70,7 @@ void SoundSystem::AddSoundComponent(entt::entity& ent, entt::registry& reg, cons
     {   
         SOUND_TRACE("Including event into 3D position");
         auto poscomp = reg.get<PositionComponent>(ent); 
-        FMOD_3D_ATTRIBUTES l_eventAttributes {FMOD_VECTOR{poscomp.x, poscomp.y, poscomp.z}, FMOD_VECTOR{0,0,0}, FMOD_VECTOR{0,0,1}, FMOD_VECTOR{0,1,0}};
+        FMOD_3D_ATTRIBUTES l_eventAttributes {FMOD_VECTOR{-poscomp.x, poscomp.y, poscomp.z}, FMOD_VECTOR{0,0,0}, FMOD_VECTOR{0,0,1}, FMOD_VECTOR{0,1,0}};
         ERRCHECK(soundInstance->set3DAttributes(&l_eventAttributes));
     }
 
@@ -97,10 +97,8 @@ void SoundSystem::Update(entt::registry& reg)
     auto view = reg.view<const ListenerComponent, const PositionComponent, const CameraComponent>();
     for(auto [lc, p_comp, c_comp]: view.each()) 
     {
-        Vector3 normalizedForward = Vector3Normalize((Vector3){c_comp.tarX, c_comp.tarY, c_comp.tarZ});
-        //float angle = Vector2Angle((Vector2){normalizedForward.x, normalizedForward.z}, {0,1});
-        //SOUND_TRACE("{0}", angle/360);
-        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {0, 0, 1}, {0,1,0}};
+        Vector3 normalizedForward = Vector3Normalize((Vector3){p_comp.x-c_comp.tarX, p_comp.y-c_comp.tarY, p_comp.z-c_comp.tarZ});
+        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, FMOD_VECTOR{normalizedForward.x, 0.0f, -normalizedForward.z}, FMOD_VECTOR{0,1,0}};
         ERRCHECK(soundSystem->setListenerAttributes(0, &l_listenerAttributes));
     }
 

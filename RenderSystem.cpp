@@ -62,8 +62,33 @@ void RenderSystem::Update(const entt::registry& registry)
     EndDrawing();
 }
 
-void RenderSystem::UpdatePlayerPosition(entt::entity& player, entt::registry& reg)
+void RenderSystem::UpdatePlayerPosition(entt::entity& player, entt::entity& radio, entt::registry& reg)
 {
+    
+    if(IsKeyPressed(KEY_ONE))
+    {
+        RENDER_INFO("Key pressed");
+        SoundComponent comp = reg.get<SoundComponent>(radio);
+        comp.floatparameers["Channel"] = 0.0f;
+        reg.replace<SoundComponent>(radio, comp.event_id, comp.floatparameers, comp.intParameters, 1, comp.marked_for_play, comp.marked_for_stop);
+    }
+
+    if(IsKeyPressed(KEY_TWO))
+    {
+        RENDER_INFO("Key pressed");
+        SoundComponent comp = reg.get<SoundComponent>(radio);
+        comp.floatparameers["Channel"] = 1.0f;
+        reg.replace<SoundComponent>(radio, comp.event_id, comp.floatparameers, comp.intParameters, 1, comp.marked_for_play, comp.marked_for_stop);
+    }
+
+    if(IsKeyPressed(KEY_THREE))
+    {
+        RENDER_INFO("Key pressed");
+        SoundComponent comp = reg.get<SoundComponent>(radio);
+        comp.floatparameers["Channel"] = 2.0f;
+        reg.replace<SoundComponent>(radio, comp.event_id, comp.floatparameers, comp.intParameters, 1, comp.marked_for_play, comp.marked_for_stop);
+    }
+
     reg.replace<PositionComponent>(player, camera.position.x, camera.position.y, camera.position.z);
     reg.replace<CameraComponent>(player, camera.target.x, camera.target.y, camera.target.z);
 }

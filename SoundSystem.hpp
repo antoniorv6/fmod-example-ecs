@@ -22,6 +22,6 @@ class SoundSystem
         ~SoundSystem();
 
         void InitBanks(const std::string& master_bank_location, const std::string& strings_bank_location);
-        void AddSoundComponent(entt::entity& ent, entt::registry& reg, const std::string& eventName);
+        void AddSoundComponent(entt::entity& ent, entt::registry& reg, const std::string& eventName, std::vector<std::string> floatvars, std::vector<std::string> intvars);
         void Update(entt::registry& reg);
 };

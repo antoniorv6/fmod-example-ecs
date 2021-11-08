@@ -49,7 +49,7 @@ void SoundSystem::InitBanks(const std::string& master_bank_location, const std::
     SOUND_INFO("Successfully loaded FMOD banks");
 }
 
-void SoundSystem::AddSoundComponent(entt::entity& ent, entt::registry& reg, const std::string& eventName)
+void SoundSystem::AddSoundComponent(entt::entity& ent, entt::registry& reg, const std::string& eventName, std::vector<std::string> floatvars, std::vector<std::string> intvars)
 {
     std::string eventID = eventName + std::to_string((uint32_t)ent);
     SOUND_TRACE("Loading {0} as a component for entity {1}", eventName, ent);
@@ -75,7 +75,17 @@ void SoundSystem::AddSoundComponent(entt::entity& ent, entt::registry& reg, cons
     }
 
     eventInstances[eventID] = soundInstance;
-    reg.emplace<SoundComponent>(ent, eventID, std::map<std::string,float>(), std::map<std::string, int>(), 0, 0, 1);
+    std::map<std::string, float> floatmap;
+    std::map<std::string, int> intmap;
+    for(const auto& element : floatvars)
+    {
+        floatmap[element] = 0.0f;
+    }
+    for(const auto& element : intvars)
+    {
+        intmap[element] = 0.0f;
+    }
+    reg.emplace<SoundComponent>(ent, eventID, floatmap, intmap, 0, 0, 1);
     
     ERRCHECK(soundInstance->start());
     SOUND_TRACE("Entity {0} has registered a new Render Component", ent);
@@ -90,7 +100,7 @@ void SoundSystem::Update(entt::registry& reg)
         Vector3 normalizedForward = Vector3Normalize((Vector3){c_comp.tarX, c_comp.tarY, c_comp.tarZ});
         //float angle = Vector2Angle((Vector2){normalizedForward.x, normalizedForward.z}, {0,1});
         //SOUND_TRACE("{0}", angle/360);
-        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {normalizedForward.x, 0, normalizedForward.z}, {0,1,0}};
+        FMOD_3D_ATTRIBUTES l_listenerAttributes {FMOD_VECTOR{-p_comp.x, p_comp.y, p_comp.z}, FMOD_VECTOR{0,0,0}, {0, 0, 1}, {0,1,0}};
         ERRCHECK(soundSystem->setListenerAttributes(0, &l_listenerAttributes));
     }
 
@@ -100,13 +110,23 @@ void SoundSystem::Update(entt::registry& reg)
     {
         if(sc.marked_for_play)
         {
-            eventInstances[sc.event_id]->start();
+            ERRCHECK(eventInstances[sc.event_id]->start());
             sc.marked_for_play = 0;
         }
         if(sc.marked_for_stop)
         {
-            eventInstances[sc.event_id]->stop(FMOD_STUDIO_STOP_IMMEDIATE);
+            ERRCHECK(eventInstances[sc.event_id]->stop(FMOD_STUDIO_STOP_IMMEDIATE));
             sc.marked_for_stop = 0;
+        }
+        if(sc.marked_for_parameter_update)
+        {
+            for(const auto& element : sc.floatparameers)
+                ERRCHECK(eventInstances[sc.event_id]->setParameterByName(element.first.c_str(), element.second));
+            
+            for(const auto& element : sc.intParameters)
+                ERRCHECK(eventInstances[sc.event_id]->setParameterByName(element.first.c_str(), element.second));
+            
+            reg.replace<SoundComponent>(e, sc.event_id, sc.floatparameers, sc.intParameters, 0, sc.marked_for_play, sc.marked_for_stop);
         }
             
     }

@@ -34,7 +34,7 @@ int main(void)
     auto radio = reg.create(); //Radio entity
     reg.emplace<PositionComponent>(radio, 0.0f, 1.0f, 12.0f);
     render.AddRenderComponent(radio, reg, "assets/models/scene.gltf", 120.0f);
-    soundsys.AddSoundComponent(radio, reg, "event:/Radio");
+    soundsys.AddSoundComponent(radio, reg, "event:/Radio", {"Channel"}, {});
     CORE_INFO("Radio entity created");
     // ----- //
 
@@ -73,7 +73,7 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         render.Update(reg);
-        render.UpdatePlayerPosition(player, reg);
+        render.UpdatePlayerPosition(player, radio, reg);
         
         soundsys.Update(reg);
         //----------------------------------------------------------------------------------

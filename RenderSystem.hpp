@@ -26,5 +26,5 @@ class RenderSystem
         void AddRenderComponent(entt::entity& ent, entt::registry& reg, const std::string& modelRoute, float modelSize);
         
         void Update(const entt::registry& registry);
-        void UpdatePlayerPosition(entt::entity& player, entt::registry& reg);
+        void UpdatePlayerPosition(entt::entity& player, entt::entity& radio, entt::registry& reg);
 };

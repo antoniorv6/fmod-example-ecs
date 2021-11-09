@@ -10,11 +10,11 @@ RenderSystem::RenderSystem()
 
     SetTraceLogLevel(LOG_NONE);
 
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera first person");
+    InitWindow(screenWidth, screenHeight, "Portal 3 ABP Edition - Pre Alpha");
 
     camera = { 0 };
     camera.position = (Vector3){ 0.0f, 2.0f, 0.0f };
-    camera.target = (Vector3){ 0.0f, 1.0f, 12.0f };
+    camera.target = (Vector3){ 0.0f, 0.0f, 1.0f };
     camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };
     camera.fovy = 60.0f;
     camera.projection = CAMERA_PERSPECTIVE;
@@ -43,13 +43,14 @@ void RenderSystem::Update(const entt::registry& registry)
     UpdateCamera(&camera);
     BeginDrawing();
 
-        ClearBackground(RAYWHITE);
+        ClearBackground(SKYBLUE);
         BeginMode3D(camera);
         
-            DrawPlane((Vector3){ 0.0f, 0.0f, 0.0f }, (Vector2){ 32.0f, 32.0f }, LIGHTGRAY); // Draw ground
-            DrawCube((Vector3){ -16.0f, 2.5f, 0.0f }, 1.0f, 5.0f, 32.0f, BLUE);     // Draw a blue wall
-            DrawCube((Vector3){ 16.0f, 2.5f, 0.0f }, 1.0f, 5.0f, 32.0f, LIME);      // Draw a green wall
-            DrawCube((Vector3){ 0.0f, 2.5f, 16.0f }, 32.0f, 5.0f, 1.0f, GOLD);      // Draw a yellow wall
+            DrawPlane((Vector3){ 0.0f, 0.0f, 0.0f }, (Vector2){ 32.0f, 32.0f }, BLACK); 
+            DrawCube((Vector3){ -12.0f, 2.5f, 0.0f }, 1.0f, 5.0f, 32.0f, BROWN);     
+            DrawCube((Vector3){ 12.0f, 2.5f, 0.0f }, 1.0f, 5.0f, 32.0f, BROWN);      
+            DrawCube((Vector3){ 0.0f, 2.5f, 14.0f }, 32.0f, 5.0f, 1.0f, BROWN);      
+            DrawCube((Vector3){ 0.0f, 2.5f, -14.0f }, 32.0f, 5.0f, 1.0f, BROWN);      
 
             //Para todos los elementos que tengan Render Component...
             auto view = registry.view<const RenderComponent, const PositionComponent>();
@@ -58,6 +59,14 @@ void RenderSystem::Update(const entt::registry& registry)
             });
         
         EndMode3D();
+
+        DrawRectangle( 10, 10, 300, 110, Fade(SKYBLUE, 0.5f));
+        DrawRectangleLines( 10, 10, 300, 110, BLUE);
+        DrawText("FMOD Demo - Control instructions:", 20, 20, 10, BLACK);
+        DrawText("- Move with keys: W, A, S, D", 40, 40, 10, BLACK);
+        DrawText("- Key 1: Listen to cheerful music", 40, 60, 10, BLACK);
+        DrawText("- Key 2: Listen to music for ripping and tearing", 40, 80, 10, BLACK);
+        DrawText("- Key 3: Have a nice chat with a friend :)", 40, 100, 10, BLACK);
             
     EndDrawing();
 }

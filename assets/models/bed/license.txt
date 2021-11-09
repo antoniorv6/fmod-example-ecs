@@ -1,0 +1,11 @@
+Model Information:
+* title:	Portal Bed
+* source:	https://sketchfab.com/3d-models/portal-bed-f92ad24a372a4fabba7539e73c541413
+* author:	Mr.Max (https://sketchfab.com/Mr_MaxW)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Portal Bed" (https://sketchfab.com/3d-models/portal-bed-f92ad24a372a4fabba7539e73c541413) by Mr.Max (https://sketchfab.com/Mr_MaxW) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

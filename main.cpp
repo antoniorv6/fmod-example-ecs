@@ -18,39 +18,50 @@ int main(void)
     
     entt::registry reg;
 
+    CORE_TRACE("Creating game entities");
+
     // -- Player creation -- //
     CORE_TRACE("Creating player entity");
     auto player = reg.create(); //Radio entity
     auto player_pos = reg.emplace<PositionComponent>(player,0.0f,0.0f,0.0f);
     auto player_cam = reg.emplace<CameraComponent>(player,  0.0f, 1.0f, 12.0f);
     reg.emplace<ListenerComponent>(player);
-    
-    
     CORE_INFO("Player entity created");
     // ----- //
 
     // -- Radio creation -- //
     CORE_TRACE("Creating radio entity");
     auto radio = reg.create(); //Radio entity
-    reg.emplace<PositionComponent>(radio, 0.0f, 2.0f, 12.0f);
-    render.AddRenderComponent(radio, reg, "assets/models/scene.gltf", 120.0f);
+    reg.emplace<PositionComponent>(radio, 0.0f, 1.95f, 12.0f);
+    render.AddRenderComponent(radio, reg, "assets/models/radio/scene.gltf", 120.0f);
     soundsys.AddSoundComponent(radio, reg, "event:/Radio", {"Channel"}, {});
     CORE_INFO("Radio entity created");
     // ----- //
 
-    //FMOD_ENGINE_TRACE("Loading Radio event...");
-    //FMOD::Studio::EventDescription * eventDescription = nullptr;
-    //ERRCHECK(m_sound_system->getEvent("event:/Radio", &eventDescription));
-    //FMOD::Studio::EventInstance * soundInstance = nullptr;
-    //ERRCHECK(eventDescription->createInstance(&soundInstance));
-    //FMOD_3D_ATTRIBUTES l_eventAttributes {FMOD_VECTOR{0.0f, 5.0f, 12.0f}, FMOD_VECTOR{0,0,0}, FMOD_VECTOR{0,0,1}, FMOD_VECTOR{0,1,0}};
-    //ERRCHECK(soundInstance->set3DAttributes(&l_eventAttributes));
+    // -- Table creation -- //
+    CORE_TRACE("Creating table entity");
+    auto table = reg.create(); //Radio entity
+    reg.emplace<PositionComponent>(table, 0.0f, 0.0f, 12.0f);
+    render.AddRenderComponent(table, reg, "assets/models/table/scene.gltf", 0.01f);
+    CORE_INFO("Table entity created");
+    // ----- //
 
+    // -- Table creation -- //
+    CORE_TRACE("Creating toilet entity");
+    auto toilet = reg.create(); //Radio entity
+    reg.emplace<PositionComponent>(toilet, 4.0f, 0.0f, 12.0f);
+    render.AddRenderComponent(toilet, reg, "assets/models/toilet/scene.gltf", 2.0f);
+    CORE_INFO("Toilet entity created");
+    // ----- //
 
-    //FMOD_ENGINE_INFO("Radio loaded correctly");
-    
+    // -- Table creation -- //
+    CORE_TRACE("Creating bed entity");
+    auto bed = reg.create(); //Radio entity
+    reg.emplace<PositionComponent>(bed, -2.0f, 0.0f, 6.0f);
+    render.AddRenderComponent(bed, reg, "assets/models/bed/scene.gltf", 1.0f);
+    CORE_INFO("Bed entity created");
+    // ----- //
 
-    //ERRCHECK(soundInstance->start());
 
     CORE_INFO("Game inited succesfully");
     
